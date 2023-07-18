@@ -1,0 +1,19 @@
+.dotted-background {
+  background-image: radial-gradient(#181818 5%, #0000001f 15%);
+  background-color: #000000;
+  background-position: 0 0, 14px 14px;
+  background-size: 16px 16px;
+  /* height: 30px; */
+  position: absolute !important;
+  width: 100%;
+}
+
+.result-background {
+  background-image: radial-gradient(#f6f6f6 15%, transparent 15%);
+  background-color: #ffffff;
+  background-position: 0 0, 14px 14px;
+  background-size: 16px 16px;
+  /* height: 30px; */
+  position: absolute !important;
+  width: 100%;
+}
