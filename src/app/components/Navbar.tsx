@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { Inter } from "next/font/google";
+import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 export default function Navbar() {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
@@ -22,6 +25,7 @@ export default function Navbar() {
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
+            onClick={() => setMenuOpen(!isMenuOpen)}
           >
             <span className="sr-only">Open main menu</span>
             <svg
@@ -41,7 +45,11 @@ export default function Navbar() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
+          <a
+            href="#"
+            target="_blank"
+            className="text-sm font-semibold leading-6 text-white"
+          >
             <div className="flex gap-2 items-center">
               Product Hunt
               <svg
@@ -60,8 +68,9 @@ export default function Navbar() {
             <div className="text-gray-600 dark:text-gray-300 lg:pr-4"></div>
             <a
               className="group"
+              target="_blank"
               aria-label="GitHub"
-              href="https://github.com/VenoM9078/tailsurge"
+              href="https://github.com/VenoM9078/htmltojsx"
             >
               <svg
                 aria-hidden="true"
@@ -75,22 +84,26 @@ export default function Navbar() {
         </div>
       </nav>
       {/* Mobile menu, show/hide based on menu open state. */}
-      <div className="lg:hidden" role="dialog" aria-modal="true">
+      <div
+        className={isMenuOpen ? "" : "hidden lg:hidden"}
+        role="dialog"
+        aria-modal="true"
+      >
         {/* Background backdrop, show/hide based on slide-over state. */}
         <div className="fixed inset-0 z-50" />
-        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                alt=""
-              />
-            </a>
+            <Link href="#" className="-m-1.5 p-1.5">
+              <h2
+                className={`${inter.className} text-2xl font-bold bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-white via-gray-300 to-gray-300 bg-clip-text text-transparent `}
+              >
+                HTMLtoJSX
+              </h2>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-400"
+              onClick={() => setMenuOpen(!isMenuOpen)}
             >
               <span className="sr-only">Close menu</span>
               <svg
@@ -114,35 +127,38 @@ export default function Navbar() {
               <div className="space-y-2 py-6">
                 <a
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
+                  className="text-sm font-semibold leading-6 text-white"
                 >
-                  Product
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                >
-                  Company
+                  <div className="flex gap-2 items-center">
+                    Product Hunt
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 text-white"
+                      fill="#fff"
+                      viewBox="0 0 256 256"
+                    >
+                      <path d="M224,104a8,8,0,0,1-16,0V59.32l-66.33,66.34a8,8,0,0,1-11.32-11.32L196.68,48H152a8,8,0,0,1,0-16h64a8,8,0,0,1,8,8Zm-40,24a8,8,0,0,0-8,8v72H48V80h72a8,8,0,0,0,0-16H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H176a16,16,0,0,0,16-16V136A8,8,0,0,0,184,128Z" />
+                    </svg>
+                  </div>
                 </a>
               </div>
               <div className="py-6">
                 <a
-                  href="#"
+                  target="_blank"
+                  href="https://github.com/VenoM9078/htmltojsx"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                 >
-                  Log in
+                  <div className="flex gap-2 items-center">
+                    Contribute on GitHub
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 text-white"
+                      fill="#fff"
+                      viewBox="0 0 256 256"
+                    >
+                      <path d="M224,104a8,8,0,0,1-16,0V59.32l-66.33,66.34a8,8,0,0,1-11.32-11.32L196.68,48H152a8,8,0,0,1,0-16h64a8,8,0,0,1,8,8Zm-40,24a8,8,0,0,0-8,8v72H48V80h72a8,8,0,0,0,0-16H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H176a16,16,0,0,0,16-16V136A8,8,0,0,0,184,128Z" />
+                    </svg>
+                  </div>
                 </a>
               </div>
             </div>

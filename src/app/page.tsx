@@ -39,9 +39,7 @@ function convertHtmlToJSX(html: string) {
 }
 
 export default function Home() {
-  const [code, setCode] = useState<string | undefined>(
-    '<div className="welcome">Hello World</div>'
-  );
+  const [code, setCode] = useState<string | undefined>("// Enter HTML here");
   const [jsx, setJSX] = useState("");
 
   function handleEditorChange(value: string | undefined) {
@@ -92,19 +90,33 @@ export default function Home() {
                 }}
                 onChange={handleEditorChange}
               />
-              <Editor
-                height="60vh"
-                defaultLanguage="javascript"
-                value={jsx}
-                options={{
-                  minimap: {
-                    enabled: false,
-                  },
-                  wordWrap: "on",
-                  renderValidationDecorations: "off",
-                }}
-                theme="vs-dark"
-              />
+              <div className="relative">
+                {" "}
+                {/* added a relative positioned div */}
+                <button className="absolute p-2 bg-zinc-900 border rounded-md border-zinc-700 top-0 right-0 z-50">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-white"
+                    fill="#fff"
+                    viewBox="0 0 256 256"
+                  >
+                    <path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path>
+                  </svg>
+                </button>
+                <Editor
+                  height="60vh"
+                  defaultLanguage="javascript"
+                  value={jsx}
+                  options={{
+                    minimap: {
+                      enabled: false,
+                    },
+                    wordWrap: "on",
+                    renderValidationDecorations: "off",
+                  }}
+                  theme="vs-dark"
+                />
+              </div>
             </div>
           </div>
         </div>
