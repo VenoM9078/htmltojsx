@@ -8,8 +8,20 @@ import Footer from "./components/Footer";
 import Head from "next/head";
 
 function convertHtmlToJSX(html: string) {
-  let jsx = html.replace(/class=/g, "className=");
-  jsx = jsx.replace(/for=/g, "htmlFor=");
+  // Convert class to className and for to htmlFor
+  let jsx = html.replace(/\bclass=/g, "className=");
+  jsx = jsx.replace(/\bfor=/g, "htmlFor=");
+
+  // Convert onclick to onClick, onmouseover to onMouseOver, etc.
+  jsx = jsx.replace(/\bon([a-z]+)/g, function (match: any, group: string) {
+    return "on" + group.charAt(0).toUpperCase() + group.slice(1);
+  });
+
+  // Convert unquoted attributes to quoted attributes
+  jsx = jsx.replace(/=(\w+)/g, function (match: any, group: string) {
+    return `="${group}"`;
+  });
+
   // Convert inline styles to objects
   jsx = jsx.replace(/style="([^"]*)"/g, function (match: any, group: string) {
     let style = group.split(";").reduce(function (style, rule) {
@@ -17,26 +29,65 @@ function convertHtmlToJSX(html: string) {
       if (parts[1]) {
         let key = parts[0].trim();
         let value = parts[1].trim();
+        // Detect if value is numeric
+        if (!isNaN(value as any)) {
+          value = parseInt(value);
+        } else if (value !== "true" && value !== "false") {
+          value = `'${value}'`; // Keep as string if not boolean
+        }
         key = key.replace(/-./g, function (x) {
           return x[1].toUpperCase();
         }); // Convert kebab-case to camelCase
-        style += key + ": '" + value + "', ";
+        style += key + ": " + value + ", ";
       }
       return style;
     }, "");
     return `style={{${style}}}`;
   });
-  // Handle self-closing tags
-  const selfClosingTags = ["br", "hr", "img", "input", "link", "meta"];
-  selfClosingTags.forEach((tag) => {
-    const regex = new RegExp(`<${tag}([^>]*)>(?!</${tag}>)`, "g");
-    jsx = jsx.replace(regex, function (match: string) {
-      if (!match.endsWith("/>")) {
-        return match.slice(0, -1) + " />";
-      }
-      return match;
-    });
+
+  // Convert boolean attributes
+  const booleanAttributes = [
+    "checked",
+    "selected",
+    "disabled",
+    "readOnly",
+    "multiple",
+    "hidden",
+  ];
+  booleanAttributes.forEach((attr) => {
+    const re = new RegExp(
+      `<([a-zA-Z][a-zA-Z0-9]*)\\b[^>]*?\\b${attr}(?![^>]*?>)`,
+      "g"
+    );
+    jsx = jsx.replace(re, `<$1 ${attr}={true}`);
   });
+
+  // Close unclosed tags, excluding self-closing tags
+  const selfClosingTags = ["br", "hr", "img", "input", "link", "meta"];
+  const re = new RegExp(
+    `<((?!${selfClosingTags.join(
+      "|"
+    )})[a-zA-Z][a-zA-Z0-9]*)\\b[^>]*>(?![^<]*<\/\\1>)`,
+    "g"
+  );
+  jsx = jsx.replace(re, "$&</$1>");
+
+  // Replace HTML comments with JSX comments
+  jsx = jsx.replace(/<!--(.*?)-->/g, "{/*$1*/}");
+
+  // Convert SVG kebab-case attributes to camelCase
+  jsx = jsx.replace(
+    /<(svg|path|circle|rect|line|polyline|polygon|text|g|defs|use|mask)[^>]*>/g,
+    function (match: any) {
+      return match.replace(/-([a-z])/g, function (match: any, group: string) {
+        return group.toUpperCase();
+      });
+    }
+  );
+
+  // Replace HTML entities within the attribute values
+  jsx = jsx.replace(/&amp;/g, "");
+
   return jsx;
 }
 
