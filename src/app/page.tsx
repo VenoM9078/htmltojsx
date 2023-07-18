@@ -31,7 +31,7 @@ function convertHtmlToJSX(html: string) {
         let value = parts[1].trim();
         // Detect if value is numeric
         if (!isNaN(value as any)) {
-          value = parseInt(value);
+          value = parseInt(value).toString();
         } else if (value !== "true" && value !== "false") {
           value = `'${value}'`; // Keep as string if not boolean
         }
