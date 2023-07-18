@@ -3,6 +3,7 @@ import Logo from "./favicon-32x32.png";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,10 @@ export default function RootLayout({
           href="/favicon-32x32.png"
         />{" "}
       </Head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
