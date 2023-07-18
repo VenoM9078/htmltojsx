@@ -129,7 +129,7 @@ To: "opacity-0 translate-y-1"
           </div>
 
           <a
-            href="#"
+            href="https://www.producthunt.com/posts/html-to-jsx"
             target="_blank"
             className="text-sm font-semibold leading-6 text-white"
           >
@@ -209,7 +209,7 @@ To: "opacity-0 translate-y-1"
             <div className="-my-6 divide-y divide-gray-500/25">
               <div className="space-y-2 py-6">
                 <a
-                  href="#"
+                  href="https://www.producthunt.com/posts/html-to-jsx"
                   className="text-sm font-semibold leading-6 text-white"
                 >
                   <div className="flex gap-2 items-center">
