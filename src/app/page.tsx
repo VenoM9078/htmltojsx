@@ -62,18 +62,19 @@ function convertHtmlToJSX(html: string) {
     jsx = jsx.replace(re, `<$1 ${attr}={true}`);
   });
 
-  // Close unclosed tags, excluding self-closing tags
+  // Ensure self-closing tags are properly closed
   const selfClosingTags = ["br", "hr", "img", "input", "link", "meta"];
-  const re = new RegExp(
-    `<((?!${selfClosingTags.join(
-      "|"
-    )})[a-zA-Z][a-zA-Z0-9]*)\\b[^>]*>(?![^<]*<\/\\1>)`,
-    "g"
-  );
-  jsx = jsx.replace(re, "$&</$1>");
+  selfClosingTags.forEach((tag) => {
+    const re = new RegExp(`<${tag}\\b([^>]*)(?<!/)>`, "g");
+    jsx = jsx.replace(re, `<${tag}$1 />`);
+  });
 
   // Replace HTML comments with JSX comments
-  jsx = jsx.replace(/<!--(.*?)-->/g, "{/*$1*/}");
+  jsx = jsx.replace(/<!--([\s\S]*?)-->/g, function (match: any, group: string) {
+    // Convert each line into a separate JSX comment
+    const lines = group.split("\n");
+    return lines.map((line) => `{/*${line.trim()}*/}`).join("\n");
+  });
 
   // Convert SVG kebab-case attributes to camelCase
   jsx = jsx.replace(
