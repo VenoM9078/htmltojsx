@@ -1,6 +1,8 @@
 import "./globals.css";
+import Logo from "./favicon-32x32.png";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />{" "}
+      </Head>
       <body className={inter.className}>{children}</body>
     </html>
   );

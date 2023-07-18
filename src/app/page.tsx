@@ -5,6 +5,7 @@ import { useState, useCallback } from "react";
 import Editor from "@monaco-editor/react";
 import Pill from "./components/Pill";
 import Footer from "./components/Footer";
+import Head from "next/head";
 
 function convertHtmlToJSX(html: string) {
   let jsx = html.replace(/class=/g, "className=");
@@ -67,6 +68,14 @@ export default function Home() {
 
   return (
     <div className="bg-black">
+      <Head>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />{" "}
+      </Head>
       <Navbar />
       <div
         style={{ width: "600px", top: "-180px" }}
