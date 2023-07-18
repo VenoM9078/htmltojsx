@@ -5,6 +5,7 @@ import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 export default function Navbar() {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isFlyoutOpen, setFlyoutOpen] = useState(false); // added
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -45,6 +46,76 @@ export default function Navbar() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
+          <div className="relative">
+            <button
+              type="button"
+              className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-white"
+              aria-expanded={isFlyoutOpen} // changed
+              onClick={() => setFlyoutOpen(!isFlyoutOpen)} // added
+            >
+              <span>Other Tools</span>
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            {/*
+    Flyout menu, show/hide based on flyout menu state.
+
+    Entering: "transition ease-out duration-200"
+From: "opacity-0 translate-y-1"
+To: "opacity-100 translate-y-0"
+    Leaving: "transition ease-in duration-150"
+From: "opacity-100 translate-y-0"
+To: "opacity-0 translate-y-1"
+  */}
+            <div
+              className={
+                isFlyoutOpen
+                  ? "absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4"
+                  : "hidden"
+              }
+            >
+              <div className="w-screen max-w-sm flex-auto rounded-3xl bg-white p-4 text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+                <div className="relative rounded-lg p-4 hover:bg-gray-50">
+                  <a href="#" className="font-semibold text-gray-900">
+                    Sand API
+                    <span className="absolute inset-0" />
+                  </a>
+                  <p className="mt-1 text-gray-600">
+                    Generate APIs in a few clicks
+                  </p>
+                </div>
+                <div className="relative rounded-lg p-4 hover:bg-gray-50">
+                  <a href="#" className="font-semibold text-gray-900">
+                    ThreadsMedia
+                    <span className="absolute inset-0" />
+                  </a>
+                  <p className="mt-1 text-gray-600">
+                    Threads.net Video & Image Downloader
+                  </p>
+                </div>
+                <div className="relative rounded-lg p-4 hover:bg-gray-50">
+                  <a href="#" className="font-semibold text-gray-900">
+                    TailSurge
+                    <span className="absolute inset-0" />
+                  </a>
+                  <p className="mt-1 text-gray-600">
+                    Generate Tailwind Layouts according to your needs
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <a
             href="#"
             target="_blank"

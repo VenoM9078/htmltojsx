@@ -4,6 +4,7 @@ import "./Background.css";
 import { useState, useCallback } from "react";
 import Editor from "@monaco-editor/react";
 import Pill from "./components/Pill";
+import Footer from "./components/Footer";
 
 function convertHtmlToJSX(html: string) {
   let jsx = html.replace(/class=/g, "className=");
@@ -192,6 +193,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
