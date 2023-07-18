@@ -39,15 +39,17 @@ function convertHtmlToJSX(html: string) {
 }
 
 export default function Home() {
-  const [code, setCode] = useState(
-    '// Enter valid HTML here..'
+  const [code, setCode] = useState<string | undefined>(
+    '<div className="welcome">Hello World</div>'
   );
   const [jsx, setJSX] = useState("");
 
-  function handleEditorChange(value, ev) {
-    setCode(value);
-    let jsxCode = convertHtmlToJSX(value);
-    setJSX(jsxCode);
+  function handleEditorChange(value: string | undefined) {
+    if (value !== undefined) {
+      setCode(value);
+      let jsxCode = convertHtmlToJSX(value);
+      setJSX(jsxCode);
+    }
   }
 
   return (
