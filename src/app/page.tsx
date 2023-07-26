@@ -221,7 +221,7 @@ export default function Home() {
                 onChange={handleEditorChange}
               />
               <div className="relative">
-                {" "}
+                {" "} 
                 {/* added a relative positioned div */}
                 <button
                   onClick={handleCopy} // Add onClick handler here
