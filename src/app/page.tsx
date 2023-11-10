@@ -5,6 +5,8 @@ import { useState, useCallback } from "react";
 import Editor from "@monaco-editor/react";
 import Pill from "./components/Pill";
 import Footer from "./components/Footer";
+import AxiomNavbar from "./components/AxiomNavbar";
+
 import Head from "next/head";
 
 function convertHtmlToJSX(html: string) {
@@ -128,7 +130,7 @@ export default function Home() {
           href="/favicon-32x32.png"
         />{" "}
       </Head>
-      <Navbar />
+      <AxiomNavbar />
       <div
         style={{ width: "600px", top: "-180px" }}
         className="absolute right-[100px] z-10 h-[150px] w-[400px] rotate-[0deg] transform rounded-full bg-orange-400 blur-[150px]"
@@ -221,7 +223,7 @@ export default function Home() {
                 onChange={handleEditorChange}
               />
               <div className="relative">
-                {" "} 
+                {" "}
                 {/* added a relative positioned div */}
                 <button
                   onClick={handleCopy} // Add onClick handler here
