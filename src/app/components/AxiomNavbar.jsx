@@ -11,6 +11,30 @@ function AxiomNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
+
+  const otherFeatures = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "Tools",
+      link: "https://axiomkit.com/tools",
+    },
+    {
+      name: "Features",
+      link: "https://axiomkit.com/features",
+    },
+    {
+      name: "Pricing",
+      link: "https://axiomkit.com/pricing",
+    },
+    {
+      name: "About Us",
+      link: "https://axiomkit.com/about",
+    },
+  ];
+
   //   const menuRef = (useRef < HTMLDivElement) | (null > null);
 
   //   useEffect(() => {
@@ -247,67 +271,17 @@ function AxiomNavbar() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-300"
-              aria-expanded="false"
-            >
-              <span>Tools</span>
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
+          {otherFeatures.map((ele, index) => {
+            return (
+              <a
+                key={index}
+                href={ele.link}
+                className="text-sm font-medium leading-6  text-white"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-
-            {isMenuOpen && (
-              <div className="absolute left-1/3 z-10 mt-5 flex w-screen max-w-5xl -translate-x-1/2 px-4">
-                <div className="w-screen max-w-3xl flex-auto overflow-hidden rounded-3xl bg-gray-50 border border-gray-200 text-sm leading-6 shadow-lg ring-1 ring-gray-900/5 lg:max-w-3xl">
-                  <div className="grid grid-cols-1 gap-x-3 gap-y-1 p-4 lg:grid-cols-3">
-                    {tools.map((tool) => (
-                      <div
-                        className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-100"
-                        key={tool.title}
-                      >
-                        <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-gray-100">
-                          <tool.svgPath />
-                        </div>
-                        <div>
-                          <Link
-                            href={tool.a}
-                            target="_blank"
-                            className="font-semibold text-gray"
-                          >
-                            {tool.title}
-                            <span className="absolute inset-0" />
-                          </Link>
-                          <p className="mt-1 text-gray-600">
-                            {tool.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <Link
-            href="https://axiomkit.com/contact"
-            className="text-sm font-semibold leading-6 text-gray-300"
-          >
-            Contact
-          </Link>
+                {ele.name}
+              </a>
+            );
+          })}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end text-gray-300">
           <SignedIn>
