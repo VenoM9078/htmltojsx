@@ -6,6 +6,7 @@ import Editor from "@monaco-editor/react";
 import Pill from "./components/Pill";
 import Footer from "./components/Footer";
 import AxiomNavbar from "./components/AxiomNavbar";
+import { useClerk } from "@clerk/nextjs";
 
 import Head from "next/head";
 
@@ -95,6 +96,8 @@ function convertHtmlToJSX(html: string) {
 }
 
 export default function Home() {
+  const clerk = useClerk();
+
   const [code, setCode] = useState<string | undefined>("// Enter HTML here");
   const [jsx, setJSX] = useState("");
   const [showNotification, setShowNotification] = useState(false);
@@ -207,21 +210,23 @@ export default function Home() {
             ) : null}
 
             <div className="grid relative max-w-full sm:grid-cols-2 gap-4 mt-16 rounded-md p-4 border bg-neutral-900 border-zinc-900 ring-1 ring-white/10 sm:mt-24 shadow-[0_20px_207px_rgba(249,_115,_22,_0.2)]">
-              <Editor
-                height="60vh"
-                defaultLanguage="javascript"
-                defaultValue={code}
-                className="rounded-full"
-                theme="vs-dark"
-                options={{
-                  minimap: {
-                    enabled: false,
-                  },
-                  wordWrap: "on",
-                  renderValidationDecorations: "off",
-                }}
-                onChange={handleEditorChange}
-              />
+              {clerk.loaded && (
+                <Editor
+                  height="60vh"
+                  defaultLanguage="javascript"
+                  defaultValue={code}
+                  className="rounded-full"
+                  theme="vs-dark"
+                  options={{
+                    minimap: {
+                      enabled: false,
+                    },
+                    wordWrap: "on",
+                    renderValidationDecorations: "off",
+                  }}
+                  onChange={handleEditorChange}
+                />
+              )}
               <div className="relative">
                 {" "}
                 {/* added a relative positioned div */}
